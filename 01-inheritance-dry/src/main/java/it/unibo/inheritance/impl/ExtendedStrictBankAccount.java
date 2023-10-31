@@ -8,19 +8,29 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
  
 
 
-    public ExtendedStrictBankAccount(int id, double balance) {
+    public ExtendedStrictBankAccount(final int id, final double balance) {
         super(id, balance);
 
     }
     
     @Override
-    public void withdraw(int id, double amount) {
+    public void withdraw(final int id, double amount) {
         if(isWithdrawAllowed(amount)) {
             withdraw(id, -amount);
         }
     }
 
-    private void transactionOp(int id, double amount){
+    @Override
+    public void withdrawFromATM(final int id, double amount){
+        if(isWithdrawAllowed(amount)){
+            withdrawFromATM(id, -amount);
+        }
+    }
+
+    @Override
+    public void chargeManagementFees(final int id)
+
+    private void transactionOp(final int id, double amount){
         if(checkUser(id)) {
             this.balance += amount;
             this.incrementTransactions();
@@ -30,5 +40,6 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     private boolean isWithdrawAllowed(final double amount) {
         return this.balance >= amount;
     }
+
     
 }
