@@ -3,7 +3,7 @@ package it.unibo.inheritance.test;
 import it.unibo.inheritance.api.AccountHolder;
 import it.unibo.inheritance.api.BankAccount;
 import it.unibo.inheritance.impl.ExtendedStrictBankAccount;
-import it.unibo.inheritance.impl.SimpleBankAccount;
+//import it.unibo.inheritance.impl.SimpleBankAccount;
 import it.unibo.inheritance.impl.StrictBankAccount;
 
 public class TestBankAccount {
