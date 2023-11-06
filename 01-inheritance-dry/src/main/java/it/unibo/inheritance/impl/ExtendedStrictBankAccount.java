@@ -31,6 +31,8 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     @Override
     public void chargeManagementFees(final int id){
         final double feeAmount = MANAGEMENT_FEE + transactions * StrictBankAccount.TRANSACTION_FEE;
+        balance -= feeAmount;
+        transactions = 0;
     }
 
     private void transactionOp(final int id, double amount){
