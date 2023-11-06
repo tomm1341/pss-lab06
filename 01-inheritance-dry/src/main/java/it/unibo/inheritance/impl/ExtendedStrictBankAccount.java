@@ -7,9 +7,11 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     private static final double TRANSACTION_FEE = 0.1;
  
     private int transactions;
+    private double balance;
 
     public ExtendedStrictBankAccount(final int id, final double balance) {
         super(id, balance);
+        this.balance = balance;
     }
     
     @Override
