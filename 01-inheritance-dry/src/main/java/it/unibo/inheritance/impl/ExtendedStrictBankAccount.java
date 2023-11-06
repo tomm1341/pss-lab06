@@ -10,20 +10,34 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
 
     public ExtendedStrictBankAccount(final int id, final double balance) {
         super(id, balance);
-        this.balance = balance;
+        //this.balance = balance;
     }
-    
+
     @Override
-    public void withdraw(final int id, double amount) {
-        if(isWithdrawAllowed(amount)) {
-            super.withdraw(id, -amount);
+    public void deposit(final int id, final double amount) {
+        if(checkUser(id)){
+            this.transactionOp(id, amount);
         }
     }
 
     @Override
-    public void withdrawFromATM(final int id, double amount){
-        if(isWithdrawAllowed(amount)){
-            super.withdrawFromATM(id, -amount);
+    public void depositFromATM(final int id, final double amount) {
+        if(checkUser(id)) {
+            this.deposit(id, amount - ExtendedStrictBankAccount.TRANSACTION_FEE);
+        }
+    }
+    
+    @Override
+    public void withdraw(final int id, final double amount) {
+        if(isWithdrawAllowed(amount) && checkUser(id)) {
+            this.transactionOp(id, -amount);
+        }
+    }
+
+    @Override
+    public void withdrawFromATM(final int id, final double amount){
+        if(isWithdrawAllowed(amount) && checkUser(id)){
+            this.withdraw(id, amount + ExtendedStrictBankAccount.TRANSACTION_FEE);
         }
     }
 
@@ -36,8 +50,16 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
         }
     }
 
+    private void transactionOp(final int id, final double amount) {
+        if (checkUser(id)) {
+            this.balance += amount;
+            this.incrementTransactions();
+            super.setBalance(balance);
+        }
+    }
+
     private boolean isWithdrawAllowed(final double amount) {
-        return this.balance >= amount;
+        return balance >= amount;
     }
 
     
