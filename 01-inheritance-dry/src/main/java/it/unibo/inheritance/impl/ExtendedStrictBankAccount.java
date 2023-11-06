@@ -6,11 +6,10 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     private static final double MANAGEMENT_FEE = 5;
     private static final double TRANSACTION_FEE = 0.1;
  
-
+    private int transactions;
 
     public ExtendedStrictBankAccount(final int id, final double balance) {
         super(id, balance);
-
     }
     
     @Override
@@ -28,7 +27,9 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     }
 
     @Override
-    public void chargeManagementFees(final int id)
+    public void chargeManagementFees(final int id){
+        final double feeAmount = MANAGEMENT_FEE + transactions * StrictBankAccount.TRANSACTION_FEE;
+    }
 
     private void transactionOp(final int id, double amount){
         if(checkUser(id)) {
