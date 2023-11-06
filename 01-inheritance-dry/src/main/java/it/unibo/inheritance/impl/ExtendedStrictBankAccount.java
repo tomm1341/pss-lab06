@@ -31,11 +31,13 @@ public class ExtendedStrictBankAccount extends SimpleBankAccount{
     @Override
     public void chargeManagementFees(final int id){
         final double feeAmount = MANAGEMENT_FEE + transactions * ExtendedStrictBankAccount.TRANSACTION_FEE;
-        balance -= feeAmount;
-        transactions = 0;
+        if(checkUser(id) && isWithdrawAllowed(feeAmount)) {
+            balance -= feeAmount;
+            transactions = 0;
+        }
     }
 
-    private void transactionOp(final int id, double amount){
+    private void transactionOp(final int id, double amount) {
         if(checkUser(id)) {
             this.balance += amount;
             super.incrementTransactions();
